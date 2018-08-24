@@ -1,0 +1,75 @@
+Exercises
+
+1. A binary tree is a data structure that each node can have at most 2 child nodes (left and right).
+
+2. Heuristics are guesses that an algorithm makes to solve a complex problem sooner by sacrificing accuracy.
+
+3. Another problem that requires the use of heuristics is playing a chess game, since there are numerous different moves the opponent can make, the algorithm can only make guesses on the most possible moves that would lead to a victory.
+
+4. DFS traverse from the root to as far as possible along each branch before backtracking. BFS traverse from the root to the next level neighbors layer by layer until the most bottom layer.
+
+5. Undirected, a-cyclic, unweighted graph is that each node of the graph can go to any other node without forming a loop and there's no assigned weight for any edges on the graph.
+
+6. A binary search tree is an directed, a-cyclic, unweighted graph.
+
+Programming Questions
+
+1. To find if a number exists in a binary search tree, start from the head node, if the the number is bigger than the node value, go to the right. Otherwise, go left. Repeatedly comparing the same way until the number is found or the bottom of the tree is reached. If can't go any further, the number does not exist in the tree.
+class binaryTree {
+	Binary btree;
+
+	function binarySearch(value) {
+		var cur = btree.head;
+		while (cur) {
+			if (value == cur.value)
+				return true;
+			else if (value > cur.value)
+				cur = cur.right;
+			else
+				cur = cur.left;
+		}
+		return false;
+	}
+}
+
+2. To find the distance, the first thing is to look for the root node which is equal or smaller than n1, and equal or bigger than n2. Then add up the distance from root to n1 and root to n2.
+
+class binaryTree {
+	Binary btree;
+
+	function distanceFromNode(node, value) {
+		var distance=0;	
+		var cur = node;
+		while (cur) {
+			if (value == cur.value)
+				return distance;
+			if (value > cur.node) {
+				cur = cur.right;
+			} else {
+				cur = cur.left;
+			}
+			distance++;
+		}
+		return -1; // value not found
+	}
+
+	function distanceBetweenNodes(n1, n2) {
+		var n1DistanceFromRoot;
+		var n2DistanceFromRoot;
+		cur = btree;
+		while (cur) {
+			if (n1 <= cur.value && n2 >= cur.value) {
+				n1DistanceFromRoot = distanceFromNode(cur, n1);
+				n2DistanceFromRoot = distanceFromNode(cur, n2);
+				if (n1DistanceFromRoot == -1 || n2DistanceFromRoot == -1)
+					return -1;
+				return n1DistanceFromRoot + n2DistanceFromRoot;
+			}
+			else if (n1 <= cur.value && n2 <= cur.value)
+				cur = cur.left;
+			else if (n1 >= cur.value && n2 >= cur.value)
+				cur = cur.right;
+		}
+	}
+}
+			
